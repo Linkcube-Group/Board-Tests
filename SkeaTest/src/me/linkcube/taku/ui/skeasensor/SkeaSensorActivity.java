@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ervinwang.bthelper.BTManager;
@@ -38,6 +39,7 @@ import custom.android.util.AlertUtils;
 public class SkeaSensorActivity extends CustomFragmentActivity {
 
 	private LineChart mChart;
+	private TextView dataLevelTv;
 	private PowerManager.WakeLock mWakeLock;
 
 	@Override
@@ -51,6 +53,7 @@ public class SkeaSensorActivity extends CustomFragmentActivity {
 		GraphManager.init(this);
 		
 		mChart = (LineChart) findViewById(R.id.chart1);
+		dataLevelTv=(TextView)findViewById(R.id.dataLevelTv);
 
 		// mChart.setUnit(" $");
 		mChart.setDrawUnitsInChart(true);
@@ -129,7 +132,7 @@ public class SkeaSensorActivity extends CustomFragmentActivity {
 							yVals.get(j).setXIndex(j - 1);
 						}
 						yVals.remove(0);
-						yVals.add(new Entry(byteToInt(buf_data[2]), 120));
+						yVals.add(new Entry(byteToInt(buf_data[3]), 120));
 						xVals.remove(0);
 						sBuilder.append(countTemp + "---"
 								+ GraphManager.getMillSecond() + "---"
@@ -143,10 +146,13 @@ public class SkeaSensorActivity extends CustomFragmentActivity {
 						data.addLimitLine(ll1);
 
 						mChart.setData(data);
-						handler.sendEmptyMessage(0);
+						
+						Message msg=new Message();
+						msg.what=byteToInt(buf_data[2]);
+						handler.sendMessage(msg);
 					} else {
-						yVals.add(new Entry(byteToInt(buf_data[2]), countTemp));
-						System.out.println("val:" + byteToInt(buf_data[2])
+						yVals.add(new Entry(byteToInt(buf_data[3]), countTemp));
+						System.out.println("val:" + byteToInt(buf_data[3])
 								+ "--countTemp:" + countTemp);
 						sBuilder.append(countTemp + "---"
 								+ GraphManager.getMillSecond() + "---"
@@ -159,7 +165,10 @@ public class SkeaSensorActivity extends CustomFragmentActivity {
 						data.addLimitLine(ll1);
 
 						mChart.setData(data);
-						handler.sendEmptyMessage(0);
+						
+						Message msg=new Message();
+						msg.what=byteToInt(buf_data[2]);
+						handler.sendMessage(msg);
 					}
 				}
 			}
@@ -231,6 +240,7 @@ public class SkeaSensorActivity extends CustomFragmentActivity {
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
 			mChart.invalidate();
+			dataLevelTv.setText("level:"+msg.what);
 		}
 
 	};

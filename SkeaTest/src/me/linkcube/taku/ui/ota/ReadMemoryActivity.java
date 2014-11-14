@@ -1,6 +1,7 @@
 package me.linkcube.taku.ui.ota;
 
 import me.linkcube.skeatest.R;
+import me.linkcube.taku.AppConst.GameFrame;
 import me.linkcube.taku.AppConst.PATH;
 import me.linkcube.taku.ui.ota.MemoryBranchLvAdapter.WitchPositionClickListener;
 import me.linkcube.taku.ui.ota.OTAManager.BluetoothMsgListener;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ervinwang.bthelper.BTManager;
@@ -26,11 +28,12 @@ public class ReadMemoryActivity extends CustomFragmentActivity implements
 
 	private String TAG = "ReadMemoryActivity";
 	private ListView memoryBranchLv;
-	private Button mergeMemoryBtn;
+	private Button shakeHandBtn,mergeMemoryBtn;
 	private MemoryBranchLvAdapter memoryBranchLvAdapter;
-	private String getBlutToothString;
+	private String getBlueToothString;
 	private String[] branchMemoryData = new String[12];
 	private int position=-1;
+	private TextView inputMsgTv,getMsgTv;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,6 +46,21 @@ public class ReadMemoryActivity extends CustomFragmentActivity implements
 		memoryBranchLv = (ListView) findViewById(R.id.memoryBranchLv);
 		memoryBranchLvAdapter = new MemoryBranchLvAdapter(this,this,branchMemoryData);
 		memoryBranchLv.setAdapter(memoryBranchLvAdapter);
+		inputMsgTv=(TextView)findViewById(R.id.inputMsgTv);
+		getMsgTv=(TextView)findViewById(R.id.getMsgTv);
+		shakeHandBtn=(Button)findViewById(R.id.shakeHandBtn);
+		shakeHandBtn.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				inputMsgTv.setText("输入");
+				getMsgTv.setText("接收");
+				boolean isShakeHand=BTManager.getInstance().sendCommand(GameFrame.SHAKE_HAND_FRAME);
+				String blueToothString = FormatUtils.bytesToHexString(GameFrame.SHAKE_HAND_FRAME);
+				Log.d(TAG, "SHAKE_HAND_FRAME:"+blueToothString+"--isShakeHand:"+isShakeHand);
+				inputMsgTv.setText(blueToothString);
+			}
+		});
 		mergeMemoryBtn = (Button) findViewById(R.id.mergeMemoryBtn);
 		mergeMemoryBtn.setVisibility(View.INVISIBLE);
 		mergeMemoryBtn.setOnClickListener(new View.OnClickListener() {
@@ -74,16 +92,20 @@ public class ReadMemoryActivity extends CustomFragmentActivity implements
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
 			// branchMemoryData[]
-			branchMemoryData[position]=getBlutToothString;
-			memoryBranchLvAdapter.notifyDataSetChanged();
-			int i=0;
-			for (; i < branchMemoryData.length; i++) {
-				if(branchMemoryData[i]==null||branchMemoryData[i].equals("")){
-					break;
+			if(getBlueToothString.equals("0f")){
+				getMsgTv.setText(getBlueToothString);
+			}else{
+				branchMemoryData[position]=getBlueToothString;
+				memoryBranchLvAdapter.notifyDataSetChanged();
+				int i=0;
+				for (; i < branchMemoryData.length; i++) {
+					if(branchMemoryData[i]==null||branchMemoryData[i].equals("")){
+						break;
+					}
 				}
-			}
-			if(i==branchMemoryData.length){
-				mergeMemoryBtn.setVisibility(View.VISIBLE);
+				if(i==branchMemoryData.length){
+					mergeMemoryBtn.setVisibility(View.VISIBLE);
+				}
 			}
 		}
 
@@ -103,7 +125,7 @@ public class ReadMemoryActivity extends CustomFragmentActivity implements
 	@Override
 	public void receiveDataUpdateUI(String bluetoothMsg) {
 		if(position!=-1){
-			getBlutToothString=bluetoothMsg;
+			getBlueToothString=bluetoothMsg;
 			getBranchMemoryFrameHandler.sendEmptyMessage(0);
 		}
 	}

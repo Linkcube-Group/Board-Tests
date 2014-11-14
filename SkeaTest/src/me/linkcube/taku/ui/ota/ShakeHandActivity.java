@@ -70,6 +70,8 @@ public class ShakeHandActivity extends CustomFragmentActivity implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.shakeHandBtn:
+			inputMsgTv.setText("输入:");
+			getMsgTv.setText("等待消息传入...");
 			boolean isShakeHand=BTManager.getInstance().sendCommand(GameFrame.SHAKE_HAND_FRAME);
 			String blueToothString = FormatUtils.bytesToHexString(GameFrame.SHAKE_HAND_FRAME);
 			Log.d(TAG, "SHAKE_HAND_FRAME:"+blueToothString+"--isShakeHand:"+isShakeHand);
