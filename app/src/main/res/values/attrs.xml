@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="MenuItem">
+        <attr name="Style" format="reference" />
+        <attr name="TitleText" format="reference|string" />
+        <attr name="TitleTextSize" format="dimension" />
+        <attr name="TitleTextColor" format="color" />
+        <attr name="Background" format="reference|color" />
+        <attr name="Src" format="reference" />
+        <attr name="TipText" format="reference|string" />
+        <attr name="TipTextSize" format="dimension" />
+        <attr name="TipTextColor" format="color" />
+    </declare-styleable>
+    <!-- 目标完成自定义控件属性 -->
+    <declare-styleable name="TargetCompletedView">
+        <attr name="mRadius" format="dimension" />
+        <attr name="mStrokeWidth" format="dimension" />
+        <attr name="mCircleColor" format="color" />
+        <attr name="mRingColor" format="color" />
+    </declare-styleable>
+    <!-- 圆形头像控件 -->
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+    </declare-styleable>
+    <!-- 按钮点击水波控件 -->
+    <declare-styleable name="RippleView">
+        <attr name="rippleColor" format="color" />
+        <attr name="alphaFactor" format="float" />
+        <attr name="hover" format="boolean" />
+    </declare-styleable>
+
+</resources>
