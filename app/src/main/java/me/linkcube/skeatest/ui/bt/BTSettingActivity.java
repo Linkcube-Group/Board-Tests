@@ -1,18 +1,5 @@
 package me.linkcube.skeatest.ui.bt;
 
-import java.util.List;
-
-import com.ervinwang.bthelper.BTHelper;
-import com.ervinwang.bthelper.BTManager;
-import com.ervinwang.bthelper.core.DeviceBroadcastReceiver;
-import com.ervinwang.bthelper.core.DeviceConnectionManager;
-import com.ervinwang.bthelper.core.OnBTDiscoveryListener;
-
-import custom.android.app.CustomFragmentActivity;
-import custom.android.app.dialog.ProgressDialogFragment;
-import custom.android.util.AlertUtils;
-import custom.android.util.PreferenceUtils;
-import custom.android.util.Timber;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.os.AsyncTask;
@@ -22,12 +9,28 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
+
+import com.ervinwang.bthelper.BTHelper;
+import com.ervinwang.bthelper.BTManager;
+import com.ervinwang.bthelper.core.DeviceBroadcastReceiver;
+import com.ervinwang.bthelper.core.DeviceConnectionManager;
+import com.ervinwang.bthelper.core.OnBTDiscoveryListener;
+
+import java.util.List;
+
+import custom.android.app.CustomFragmentActivity;
+import custom.android.app.dialog.ProgressDialogFragment;
+import custom.android.util.AlertUtils;
+import custom.android.util.PreferenceUtils;
+import custom.android.util.Timber;
 import me.linkcube.skeatest.R;
-import static com.ervinwang.bthelper.Const.Device.*;
+
+import static com.ervinwang.bthelper.Const.Device.DEVICE_ADDRESS;
+import static com.ervinwang.bthelper.Const.Device.DEVICE_NAME;
 
 public class BTSettingActivity extends CustomFragmentActivity implements
 		OnClickListener, OnDeviceItemClickListener, OnBTDiscoveryListener {

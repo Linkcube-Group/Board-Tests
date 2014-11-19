@@ -8,6 +8,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/Lib-Android-Async-Http" />
+            <option value="$PROJECT_DIR$/Lib-App" />
+            <option value="$PROJECT_DIR$/Lib-Utils" />
             <option value="$PROJECT_DIR$/app" />
           </set>
         </option>

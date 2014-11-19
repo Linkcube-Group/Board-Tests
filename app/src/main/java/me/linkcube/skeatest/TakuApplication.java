@@ -3,7 +3,6 @@ package me.linkcube.skeatest;
 
 import custom.android.util.PreferenceUtils;
 import custom.android.util.Timber;
-import me.linkcube.skeatest.BuildConfig;
 import android.app.Application;
 
 public class TakuApplication extends Application {
@@ -19,7 +18,7 @@ public class TakuApplication extends Application {
 		} else {
 			Timber.plant(new Timber.HollowTree());
 		}
-		PreferenceUtils.initDataShare(getApplicationContext());
+		//PreferenceUtils.initDataShare(getApplicationContext());
 	}
 	
 	@Override
@@ -27,4 +26,7 @@ public class TakuApplication extends Application {
         super.onTerminate();
     }
 
+    public final class BuildConfig {
+        public final static boolean DEBUG = true;
+    }
 }

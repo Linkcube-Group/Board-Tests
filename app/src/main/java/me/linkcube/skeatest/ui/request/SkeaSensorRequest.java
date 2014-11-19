@@ -1,18 +1,18 @@
 package me.linkcube.skeatest.ui.request;
 
-import me.linkcube.skeatest.AppConst.ErrorFlag;
-import me.linkcube.skeatest.AppConst.ResponseKey;
-import me.linkcube.skeatest.utils.HttpResponseListener;
-import me.linkcube.skeatest.utils.TakuHttpClient;
+import android.util.Log;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
-
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
+import me.linkcube.skeatest.AppConst.ErrorFlag;
+import me.linkcube.skeatest.AppConst.ResponseKey;
+import me.linkcube.skeatest.utils.HttpResponseListener;
+import me.linkcube.skeatest.utils.TakuHttpClient;
 
 public class SkeaSensorRequest {
 

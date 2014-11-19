@@ -1,1 +1,1 @@
-include ':app'
+include ':app', ':Lib-Android-Async-Http', ':Lib-Utils', ':Lib-App'
