@@ -40,3 +40,13 @@ proguard/
 *.ipr
 *.iws
 .idea/
+/Board_Tests.iml
+/SkeaTest.iml
+/Lib-Utils/build
+/Lib-Utils/Lib-Utils.iml
+/Lib-App/Lib-App.iml
+/Lib-App/build
+/Lib-Android-Async-Http/Lib-Android-Async-Http.iml
+/Lib-Android-Async-Http/build
+/.idea
+/app/*.iml
